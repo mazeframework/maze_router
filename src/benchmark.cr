@@ -1,11 +1,11 @@
 require "benchmark"
 require "radix"
-require "./aaze_router"
+require "./maze_router"
 
 class Benchmarker
   getter route_library
   getter route_checks
-  getter aaze_router
+  getter maze_router
   getter radix_router
 
   def initialize
@@ -24,20 +24,20 @@ class Benchmarker
       "/post/*"                                                                             => :catchall,
     }
 
-    @aaze_routes = {
+    @maze_routes = {
       "/put/products/*slug/dp/:id" => :amazon_style_url
     }
 
-    @aaze_router = Maze::Router::RouteSet(Symbol).new
+    @maze_router = Maze::Router::RouteSet(Symbol).new
     @radix_router = Radix::Tree(Symbol).new
 
     @shared_routes.each do |k, v|
       radix_router.add k, v
-      aaze_router.add k, v
+      maze_router.add k, v
     end
 
-    @aaze_routes.each do |k, v|
-      aaze_router.add k, v
+    @maze_routes.each do |k, v|
+      maze_router.add k, v
     end
   end
 
@@ -60,7 +60,7 @@ class Benchmarker
     puts route
 
     Benchmark.ips do |x|
-      x.report("router: #{name}") { run_check(aaze_router, route, result) }
+      x.report("router: #{name}") { run_check(maze_router, route, result) }
       x.report("radix: #{name}") { run_check(radix_router, route, result) }
     end
 
@@ -81,7 +81,7 @@ class Benchmarker
   def benchmark_self
     puts "/put/products/Winter-Windproof-Trapper-Hat/dp/B01J7DAMCQ"
     Benchmark.ips do |x|
-      x.report("globs with suffix match") { run_check(aaze_router, "/put/products/Winter-Windproof-Trapper-Hat/dp/B01J7DAMCQ", :amazon_style_url) }
+      x.report("globs with suffix match") { run_check(maze_router, "/put/products/Winter-Windproof-Trapper-Hat/dp/B01J7DAMCQ", :amazon_style_url) }
     end
   end
 end

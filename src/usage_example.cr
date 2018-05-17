@@ -1,4 +1,4 @@
-require "./aaze_router"
+require "./maze_router"
 
 class RouteSetDemonstration
   property route_set

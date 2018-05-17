@@ -1,11 +1,11 @@
 # Maze/Router
 
-[![Build Status](https://travis-ci.org/aazeframework/router.svg?branch=master)](https://travis-ci.org/aazeframework/router) A tree based url router with a similar API interface to [radix](luislavena/radix).
+[![Build Status](https://travis-ci.org/mazeframework/router.svg?branch=master)](https://travis-ci.org/mazeframework/router) A tree based url router with a similar API interface to [radix](luislavena/radix).
 
 ## Usage
 
 ```crystal
-require "./aaze_router"
+require "./maze_router"
 
 route_set = Maze::Router::RouteSet(Symbol).new
 route_set.add "/get/", :root

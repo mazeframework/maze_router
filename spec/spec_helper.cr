@@ -1,5 +1,5 @@
 require "spec"
-require "../src/aaze_router"
+require "../src/maze_router"
 
 def build
   Maze::Router::RouteSet(Symbol).new.tap do |router|
